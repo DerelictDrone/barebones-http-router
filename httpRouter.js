@@ -3,17 +3,34 @@ class httpRouter extends Function {
     super('req','res','router',
     `
     let url
+    let urlProcessing
+    let slashes
     let routes
+    let route
     try{
     url = req.method.toLowerCase() + '|' + req.url
     routes = router[Object.keys(router).slice(-1)]
     try{
     routes[url](req,res)
+    } catch {
+    try {
+      urlProcessing = url.replace(/\\\/*$/,'')
+      slashes = (urlProcessing.split('/')).length
+      for(let i = 0; i < slashes; i++) {
+        try{
+        route = routes[(Object.keys(routes).filter(route => (new RegExp(\`\${urlProcessing.split('|').join('\\\\|')}.*\\\\*\`)).test(route)).sort((a,b)=> a.length - b.length))[0]]
+        if(route) {
+          i = Infinity
+          route(req,res)
+        } else {
+          throw('')
+        }
+        } catch {
+          urlProcessing = (urlProcessing.split('/').slice(0,-1).join('/'))+'/'
+        }
+      }
     } catch(err) {
       console.log(err)
-    try {
-    routes[url.split('/').slice(0,-1).join('/')+'/*'](req,res)
-    } catch(err) {
       routes['default'](req,res)
     }
   }} catch(err) {
@@ -46,3 +63,4 @@ req.on('end',async ()=>{
 })})}
 
 exports.httpRouter = httpRouter
+
