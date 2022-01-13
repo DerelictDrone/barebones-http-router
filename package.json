@@ -1,0 +1,25 @@
+{
+  "name": "barebones-http-router,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  },
+  "keywords": [
+    "http", "router"
+  ],
+  "author": "Phpminor(derelictDrone)",
+  "contributors": [
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/derelictDrone/barebones-http-router.git"
+  },
+  "bugs": {
+    "url": "https://github.com/derelictDrone/barebones-http-router/issues"
+  },
+  "homepage": "https://github.com/derelictDrone/barebones-http-router#readme",
+  "devDependencies": {
+  }
+}
